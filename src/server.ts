@@ -323,7 +323,7 @@ server.registerTool(
     inputSchema: {
       tableName: z.string().describe("Name of the table to get sample data from"),
       database: z.string().optional().describe("Database name (defaults to 'eadmin')"),
-      limit: z.number().optional().describe("Number of records to return (defaults to 10, max 100)")
+      limit: z.number().optional().describe("Number of records to return (defaults to 10)")
     }
   },
   async ({ tableName, database = 'eadmin', limit = 10 }) => {
@@ -332,7 +332,7 @@ server.registerTool(
       
       const response = await axios.post(PHP_API_URL, {
         queryName: "get-top-records",
-        params: { tableName, database, limit: Math.min(limit, 100) }
+        params: { tableName, database, limit: limit }
       }, {
         headers: {
           'Content-Type': 'application/json',
